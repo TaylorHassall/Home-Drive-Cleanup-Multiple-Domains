@@ -10,7 +10,7 @@ Foreach($folder in $userFolders) { #loops through each of the $userFolders folde
     if($folder -like "*.HASSELLS" -or "*.ASIA"){  #this part removes any suffixes
         clear-Variable -name "existCheckAsiaBool","ExistCheckHassellBool","ExistCheckTrue","enabledCheckAsia","enabledCheckHassell","enabledCheckAsiaBool","enabledCheckHassellBool","userAsia","userHassell","CSVExportFormatObject"#clears variables to prevent incorrectly logging duplicate data
         $folderRename = ($folder).Replace(".HASSELLS","").replace(".ASIA","").replace(".asia","") #searches and removed the .hassells or .asia suffix from the folder name on line 21
-        $userAsia = (Get-ADUser -server AS2-P-DC-03 -filter "homeDirectory -like '*$folderRename*'") #queries the AD Server for the suer, cannot use Global LDAP Catalogue, does not return homeDirectory Data. Therefore storing in it's own variable
+        $userAsia = (Get-ADUser -server ServerName -filter "homeDirectory -like '*$folderRename*'") #queries the AD Server for the suer, cannot use Global LDAP Catalogue, does not return homeDirectory Data. Therefore storing in it's own variable
         $userHassell = (Get-ADUser -filter "homeDirectory -like '*$folderRename*'") #as above
         $ExistCheckAsiaBool = [boolean]$userAsia #sets the boolean Value of $userAsia to $exist Check Asia. If the user Exists and has data AT ALL, the $ExistCheckAsiabool is set to True
         $ExistCheckHassellBool = [boolean]$userHassell #as above
